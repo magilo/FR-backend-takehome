@@ -12,21 +12,15 @@ Transaction.init({
   },
   points: {
     type: Sequelize.INTEGER,
-    validate: {
-      min: 0
-    }
   },
   timestamp: {
     type: Sequelize.TIME,
     unique: true,
     allowNull: false
   },
-  spent: {
-    type: Sequelize.BOOLEAN,
+  leftover: {
+    type: Sequelize.INTEGER,
     allowNull: false,
-    validate: {
-      notEmpty: true
-    }
   }
 }, {
   sequelize,

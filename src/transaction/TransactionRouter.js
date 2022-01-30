@@ -9,12 +9,12 @@ router.post('/api/transactions', async (req, res, next) => {
   try {
     //create new row in transaction table
 
-    console.log(req.body)
+    // console.log(req.body)
     await Transaction.create({
       payer: req.body.payer,
       points: req.body.points,
       timestamp: req.body.timestamp,
-      spent: false
+      leftover: req.body.points
     })
 
     res.json({ message: "transaction added" })

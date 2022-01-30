@@ -12,45 +12,98 @@ beforeEach(() => {
   return Transaction.destroy({ truncate: true });
 })
 
-describe('Add Single Transaction', () => {
 
-  const postValidTransaction = () => {
-    return request(app)
-      .post('/api/transactions')
-      .send({
-        "payer": "DANNON",
-        "points": 1000,
-        "timestamp": "2020-11-02T14:00:00Z"
-      })
-  }
+const postTransaction1 = () => {
+  return request(app)
+    .post('/api/transactions')
+    .send({
+      "payer": "DANNON",
+      "points": 1000,
+      "timestamp": "2020-11-02T14:00:00Z"
+    })
+}
+const postTransaction2 = () => {
+  return request(app)
+    .post('/api/transactions')
+    .send({
+      "payer": "UNILEVER",
+      "points": 200,
+      "timestamp": "2020-10-31T11:00:00Z"
+    })
+}
 
-  it('returns 200 OK when add transaction request is valid', async () => {
-    const response = await postValidTransaction();
-    expect(response.status).toBe(200);
-  })
+const postTransaction3 = () => {
+  return request(app)
+    .post('/api/transactions')
+    .send({
+      "payer": "DANNON",
+      "points": -200,
+      "timestamp": "2020-10-31T15:00:00Z"
+    })
+}
 
-  it('returns success message when add transaction request is valid', async () => {
-    const response = await postValidTransaction();
-    expect(response.body.message).toBe('transaction added');
-  })
+const postTransaction4 = () => {
+  return request(app)
+    .post('/api/transactions')
+    .send({
+      "payer": "MILLER COORS",
+      "points": 10000,
+      "timestamp": "2020-11-01T14:00:00Z"
+    })
+}
 
-  it('saves the transaction to the database', async () => {
-    await postValidTransaction();
-    const transactionList = await Transaction.findAll();
-    expect(transactionList.length).toBe(1);
-  })
+const postTransaction5 = () => {
+  return request(app)
+    .post('/api/transactions')
+    .send({
+      "payer": "DANNON",
+      "points": 300,
+      "timestamp": "2020-10-31T10:00:00Z"
+    })
+}
 
-  it('saves the payer, points, timestamp to the database', async () => {
-    await postValidTransaction();
-    const transactionList = await Transaction.findAll();
-    const savedTransaction = transactionList[0];
-    expect(savedTransaction.payer).toBe('DANNON');
-    expect(savedTransaction.points).toBe(1000);
-    expect(savedTransaction.timestamp).toBe("2020-11-02T14:00:00Z");
-    expect(savedTransaction.spent).toBe(false);
-  })
 
+
+it('saves multiple transactions to the database', async () => {
+  await Promise.all([
+    postTransaction1(),
+    postTransaction2(),
+    postTransaction3(),
+    postTransaction4(),
+    postTransaction5()]);
+
+
+
+  const transactionList = await Transaction.findAll();
+  //console.log(transactionList.length, transactionList);
+  expect(transactionList.length).toBe(5);
 })
 
+//get multiple transactions
+it('returns multiple transactions sorted by oldest date first', async () => {
+  await Promise.all([
+    postTransaction1(),
+    postTransaction2(),
+    postTransaction3(),
+    postTransaction4(),
+    postTransaction5()]);
 
 
+  const transactionList = await request(app).get('/api/transactions');
+  //expect array to be sorted by timestamp
+  expect(transactionList[0].timestamp).toEqual("2020-10-31T10:00:00Z")
+  expect(transactionList[1].timestamp).toEqual("2020-10-31T11:00:00Z")
+  expect(transactionList[2].timestamp).toEqual("2020-10-31T15:00:00Z")
+  expect(transactionList[3].timestamp).toEqual("2020-11-01T14:00:00Z")
+  expect(transactionList[4].timestamp).toEqual("2020-11-02T14:00:00Z")
+
+  //this query part goes in router code
+  // const transactionList = await Transaction.findAll({
+  //   attributes: ['timestamp'],
+  //   order: sequelize.col('timestamp')
+  // });
+  // console.log(transactionList.length, transactionList);
+
+  expect(transactionList.length).toBe(5);
+
+})
