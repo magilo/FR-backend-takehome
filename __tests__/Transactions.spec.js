@@ -41,7 +41,7 @@ describe('Add Single Transaction', () => {
   })
 
   it('saves the payer, points, timestamp to the database', async () => {
-    await postValidTransaciton();
+    await postValidTransaction();
     const transactionList = await Transaction.findAll();
     const savedTransaction = transactionList[0];
     expect(savedTransaction.payer).toBe('DANNON');

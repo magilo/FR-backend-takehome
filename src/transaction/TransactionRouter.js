@@ -1,20 +1,21 @@
 const express = require('express');
-
 const router = express.Router();
+
+const Transaction = require('./Transaction')
 
 
 /*** API routes for transactions*/
 router.post('/api/transactions', async (req, res, next) => {
   try {
     //create new row in transaction table
-    // await Transaction.create({
-    //   payer: req.body.payer,
-    //   points: req.body.points,
-    //   timestamp: req.body.timestamp,
-    //   spent: false
-    // })
-    console.log(req.body);
-    await Transaction.create(req.body);
+
+    console.log(req.body)
+    await Transaction.create({
+      payer: req.body.payer,
+      points: req.body.points,
+      timestamp: req.body.timestamp,
+      spent: false
+    })
 
     res.json({ message: "transaction added" })
 
