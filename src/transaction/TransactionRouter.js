@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const Transaction = require('./Transaction')
-
+const Transaction = require('./Transaction');
+const sequelize = require('../database');
 
 /*** API routes for transactions*/
 router.post('/api/transactions', async (req, res, next) => {
@@ -19,6 +19,18 @@ router.post('/api/transactions', async (req, res, next) => {
 
     res.json({ message: "transaction added" })
 
+  } catch (err) {
+    next(err);
+  }
+})
+
+router.get('/api/transactions', async (req, res, next) => {
+  try {
+    const transactionList = await Transaction.findAll({
+      order: sequelize.col('timestamp')
+    });
+    // console.log(transactionList.length, transactionList[0].timestamp);
+    res.json(transactionList);
   } catch (err) {
     next(err);
   }
