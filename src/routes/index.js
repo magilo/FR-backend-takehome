@@ -10,3 +10,10 @@ router.use(SpendRouter);
 
 module.exports = router;
 // export { router as PointsRouter };
+
+
+// router.use((req, res, next) => {
+//   const error = new Error('Not Found')
+//   error.status = 404
+//   next(error)
+// })
