@@ -31,7 +31,7 @@ it('returns success message if request is valid', async () => {
 it('responds with an array', async () => {
   //add dummy data to tables
   await putTransactions(transactions);
-  const transactionList = await Partner.findAll();
+  // const transactionList = await Partner.findAll();//not needed
 
   const data = await patchPointsSpend1();
 
