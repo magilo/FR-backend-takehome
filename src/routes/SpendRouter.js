@@ -7,7 +7,7 @@ const sequelize = require('../database');
 
 router.patch('/api/user/spend', async (req, res, next) => {
   try {
-    console.log('hello world')
+    
     res.json({ message: "points have been spent" })
   } catch (err) {
     next(err);
