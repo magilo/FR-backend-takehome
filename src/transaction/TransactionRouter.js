@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const Transaction = require('./Transaction');
+const Transaction = require('../models/Transaction');
 const sequelize = require('../database');
 
 /*** API routes for transactions*/

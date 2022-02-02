@@ -2,8 +2,8 @@
 const request = require('supertest');
 const app = require('../src/app');
 const sequelize = require('../src/database');
-const Payer = require('../src/payer/Payer');
-const Transaction = require('../src/transaction/Transaction');
+const Partner = require('../src/models/Partner');
+const Transaction = require('../src/models/Transaction');
 
 beforeAll(() => {
   return sequelize.sync();
@@ -11,7 +11,7 @@ beforeAll(() => {
 
 //clean tables before each it block
 beforeEach(async () => {
-  await Payer.destroy({ truncate: true });
+  await Partner.destroy({ truncate: true });
   await Transaction.destroy({ truncate: true });
 })
 
@@ -64,7 +64,7 @@ it('updates payer points if payer already exists', async () => {
   const response = await putTransaction3();
 
   console.log('response', response.body)
-  const updatedPayer = await Payer.findOne({ where: { payer: "DANNON" } })
+  const updatedPayer = await Partner.findOne({ where: { payer: "DANNON" } })
 
   expect(response.status).toBe(200);
   expect(response.body.message).toBe('points updated');

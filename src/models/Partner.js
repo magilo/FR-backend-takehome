@@ -3,9 +3,9 @@ const sequelize = require('../database');
 
 const Model = Sequelize.Model;
 
-class Payer extends Model { }
+class Partner extends Model { }
 
-Payer.init({
+Partner.init({
   payer: {
     type: Sequelize.STRING,
     unique: true,
@@ -16,7 +16,7 @@ Payer.init({
   }
 }, {
   sequelize,
-  modelName: 'payer'
+  modelName: 'partner'
 })
 
-module.exports = Payer;
+module.exports = Partner;
