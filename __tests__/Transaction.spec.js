@@ -15,7 +15,6 @@ beforeEach(async () => {
   await Transaction.destroy({ truncate: true });
 })
 
-
 const putTransaction1 = () => {
   return request(app)
     .put('/api/transactions/DANNON')
@@ -49,10 +48,10 @@ const putTransaction3 = () => {
 describe('add transaction route', () => {
   it('creates new payer if payer does not exist in Partner table', async () => {
     const response = await putTransaction1();
+
     expect(response.status).toBe(200);
     expect(response.body.message).toBe('new payer added');
   })
-
 
   it('updates payer points if payer already exists', async () => {
     await putTransaction1();

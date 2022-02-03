@@ -1,11 +1,11 @@
 const express = require('express');
 
-const PayerRouter = require('./PayerRouter');
+const TransactionRouter = require('./TransactionRouter');
 const SpendRouter = require('./SpendRouter');
 
 const router = express.Router();
 
-router.use(PayerRouter);
+router.use(TransactionRouter);
 router.use(SpendRouter);
 
 module.exports = router;
