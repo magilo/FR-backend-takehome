@@ -2,12 +2,10 @@ const express = require('express');
 const router = express.Router();
 
 const { Partner, Transaction } = require('../models');
-// const Transaction = require('../models/Transaction');
-// const Payer = require('../models/Payer');
 const sequelize = require('../database');
 
-/*** API routes for payer*/
 
+/*** API routes for payer*/
 
 router.put('/api/transactions/:payer', async (req, res, next) => {
   try {
@@ -48,12 +46,6 @@ router.put('/api/transactions/:payer', async (req, res, next) => {
 //   } catch (err) {
 //     next(err);
 //   }
-// })
-
-// router.use((req, res, next) => {
-//   const error = new Error('Not Found')
-//   error.status = 404
-//   next(error)
 // })
 
 module.exports = router;

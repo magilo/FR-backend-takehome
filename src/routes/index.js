@@ -1,6 +1,6 @@
 const express = require('express');
 
-const PayerRouter = require('../payer/PayerRouter');
+const PayerRouter = require('./PayerRouter');
 const SpendRouter = require('./SpendRouter');
 
 const router = express.Router();
