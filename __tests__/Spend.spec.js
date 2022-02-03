@@ -39,68 +39,72 @@ async function putTransactions(transactions) {
   }
 }
 
+describe('spend points', () => {
+  it('returns status OK, message, and balance if request is valid', async () => {
+    const res = await patchSpendPoints({ "points": 5000 });
 
-it('returns status OK, message, and balance if request is valid', async () => {
-  const res = await patchSpendPoints({ "points": 5000 });
+    expect(res.status).toBe(200);
+    expect(res.body.message).toBe("no points available");
+    expect(res.body.balance).toBe(0);
+  });
 
-  expect(res.status).toBe(200);
-  expect(res.body.message).toBe("no points available");
-  expect(res.body.balance).toBe(0);
+  it('returns with message and balance if user does not have enough points for the spend request', async () => {
+    // await putDannon300();
+    await singleTransaction({ "payer": "DANNON", "points": 300, "timestamp": "2020-10-31T10:00:00Z" });
+    const res = await patchSpendPoints({ "points": 5000 });
+
+    expect(res.body.message).toBe("not enough points");
+    expect(res.body.balance).toBe(300);
+  });
+
+  it('returns with message and balance if user has no points', async () => {
+    const res = await patchSpendPoints({ "points": 0 });
+
+    expect(res.body.message).toBe("no points available");
+    expect(res.body.balance).toBe(0);
+  });
+
+  it('responds with how many points the payer paid', async () => {
+    // await putDannon300();
+    await singleTransaction({ "payer": "DANNON", "points": 300, "timestamp": "2020-10-31T10:00:00Z" });
+    const res = await patchSpendPoints({ "points": 300 });
+
+    expect(Array.isArray(res.body)).toBe(true);
+    expect(res.body.length).toBe(1);
+
+    expect(res.body[0].payer).toBe("DANNON");
+    expect(res.body[0].points).toBe(-300);
+    expect(res.status).toBe(200);
+  });
+
+  it('handles cases where there will be leftover points in the transaction', async () => {
+    // await putMiller10000();
+    await singleTransaction({ "payer": "MILLER COORS", "points": 10000, "timestamp": "2020-11-01T14:00:00Z" });
+    const res = await patchSpendPoints({ "points": 5000 });
+
+    expect(Array.isArray(res.body)).toBe(true);
+    expect(res.body.length).toBe(1);
+
+    expect(res.body[0].payer).toBe("MILLER COORS");
+    expect(res.body[0].points).toBe(-5000);
+    expect(res.status).toBe(200);
+  });
+
+  it('the response array contains objects with payers and points', async () => {
+    await putTransactions(transactions);
+    const res = await patchSpendPoints({ "points": 5000 });
+
+    expect(Array.isArray(res.body)).toBe(true);
+    expect(res.body.length).toBe(3);
+
+    expect(res.body[0].payer).toBe("DANNON");
+    expect(res.body[0].points).toBe(-100);
+    expect(res.body[1].payer).toBe("UNILEVER");
+    expect(res.body[1].points).toBe(-200);
+    expect(res.body[2].payer).toBe("MILLER COORS");
+    expect(res.body[2].points).toBe(-4700);
+  });
+
 });
 
-it('returns with message and balance if user does not have enough points for the spend request', async () => {
-  // await putDannon300();
-  await singleTransaction({ "payer": "DANNON", "points": 300, "timestamp": "2020-10-31T10:00:00Z" });
-  const res = await patchSpendPoints({ "points": 5000 });
 
-  expect(res.body.message).toBe("not enough points");
-  expect(res.body.balance).toBe(300);
-});
-
-it('returns with message and balance if user has no points', async () => {
-  const res = await patchSpendPoints({ "points": 0 });
-
-  expect(res.body.message).toBe("no points available");
-  expect(res.body.balance).toBe(0);
-});
-
-it('responds with how many points the payer paid', async () => {
-  // await putDannon300();
-  await singleTransaction({ "payer": "DANNON", "points": 300, "timestamp": "2020-10-31T10:00:00Z" });
-  const res = await patchSpendPoints({ "points": 300 });
-
-  expect(Array.isArray(res.body)).toBe(true);
-  expect(res.body.length).toBe(1);
-
-  expect(res.body[0].payer).toBe("DANNON");
-  expect(res.body[0].points).toBe(-300);
-  expect(res.status).toBe(200);
-});
-
-it('handles cases where there will be leftover points in the transaction', async () => {
-  // await putMiller10000();
-  await singleTransaction({ "payer": "MILLER COORS", "points": 10000, "timestamp": "2020-11-01T14:00:00Z" });
-  const res = await patchSpendPoints({ "points": 5000 });
-
-  expect(Array.isArray(res.body)).toBe(true);
-  expect(res.body.length).toBe(1);
-
-  expect(res.body[0].payer).toBe("MILLER COORS");
-  expect(res.body[0].points).toBe(-5000);
-  expect(res.status).toBe(200);
-});
-
-it('the response array contains objects with payers and points', async () => {
-  await putTransactions(transactions);
-  const res = await patchSpendPoints({ "points": 5000 });
-
-  expect(Array.isArray(res.body)).toBe(true);
-  expect(res.body.length).toBe(3);
-
-  expect(res.body[0].payer).toBe("DANNON");
-  expect(res.body[0].points).toBe(-100);
-  expect(res.body[1].payer).toBe("UNILEVER");
-  expect(res.body[1].points).toBe(-200);
-  expect(res.body[2].payer).toBe("MILLER COORS");
-  expect(res.body[2].points).toBe(-4700);
-});
