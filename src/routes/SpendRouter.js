@@ -4,6 +4,7 @@ const router = express.Router();
 const { Partner, Transaction } = require('../models');
 const sequelize = require('../database');
 const { Op } = require("sequelize");
+const { getUserBalance } = require('./UserService')
 
 
 router.patch('/api/user/spend', async (req, res, next) => {
@@ -22,10 +23,10 @@ router.patch('/api/user/spend', async (req, res, next) => {
       },
       order: sequelize.col('timestamp')
     })
-    console.log('orderByTimestamp', orderByTimestamp)
+    // console.log('orderByTimestamp', orderByTimestamp)
 
     const userBalance = await Partner.sum('points');
-    console.log('userBalance', userBalance)
+    // console.log('userBalance', userBalance)
 
     if (userBalance === null) {
       // console.log(userBalance, pointsToSpend)
@@ -43,18 +44,23 @@ router.patch('/api/user/spend', async (req, res, next) => {
         });
     }
 
+    const activePayers = {} //payers that paid out for this spend call
     let timestampIdx = 0; //index for orderByTimestamp
+
     while (pointsToSpend > 0) {
       let currentTransaction = orderByTimestamp[timestampIdx];
       let currentPayer = currentTransaction.payer;
 
       const payerBalance = await Partner.findOne({ where: { payer: currentPayer } })
+      //initialize payer in activePayers
+      if (!(currentPayer in activePayers)) activePayers[currentPayer] = 0;
 
       //first use up any leftover points in the currentTransaction
       // then go through each transaction until pointsToSpend is paid out
       if (currentTransaction.leftover >= pointsToSpend) {
         //this means that points to spend will go to 0
         //there may or may not be leftover points
+        activePayers[currentPayer] -= pointsToSpend;
 
         payerBalance.points -= pointsToSpend;
         await payerBalance.save();
@@ -67,6 +73,7 @@ router.patch('/api/user/spend', async (req, res, next) => {
       else if (currentTransaction.leftover < pointsToSpend) {
         //this means it will use up all of the points in the currentTransaction
         //there will still be pointsToSpend after this
+        activePayers[currentPayer] -= currentTransaction.leftover;
 
         payerBalance.points -= currentTransaction.leftover;
         await payerBalance.save();
@@ -77,36 +84,20 @@ router.patch('/api/user/spend', async (req, res, next) => {
         await currentTransaction.save();
       }
 
-      console.log('payerBalance', payerBalance)
-      console.log('leftover points', currentTransaction.leftover)
-      console.log('pointsToSpend', pointsToSpend)
+      // console.log('payerBalance', payerBalance)
+      // console.log('leftover points', currentTransaction.leftover)
+      // console.log('pointsToSpend', pointsToSpend)
 
-      break;
+      timestampIdx++;
     }
 
-
-    if (orderByTimestamp.length > 0) {
-
-      const activePayers = {}
-
-
-
-
-
-
-
-      let paidList = []
-      for (let payerName in activePayers) {
-        const paidAmount = { payer: payerName, points: activePayers[payerName] }
-        paidList.push(paidAmount);
-      }
-
-      res.status(200).send(paidList)
-      // .json({ message: "points have been spent" })
-
-    } else {
-      res.json({ message: "no points available" })
+    let paidList = []
+    for (let payerName in activePayers) {
+      const paidAmount = { payer: payerName, points: activePayers[payerName] }
+      paidList.push(paidAmount);
     }
+
+    res.status(200).send(paidList)
 
   } catch (err) {
     next(err);
