@@ -34,6 +34,14 @@ const putTransaction1 = () => {
     })
 }
 
+const putTransaction2 = () => {
+  return request(app)
+    .put('/api/transactions/MILLER COORS')
+    .send({
+      "payer": "MILLER COORS", "points": 10000, "timestamp": "2020-11-01T14:00:00Z"
+    })
+}
+
 
 it('returns success message if request is valid', async () => {
   const response = await patchPointsSpend1();
@@ -41,35 +49,35 @@ it('returns success message if request is valid', async () => {
   expect(response.body.message).toBe("no points available");
 })
 
-it('responds with how many points the payer paid', async () => {
-  await putTransaction1();
-  const res = await patchPointsSpend2();
+// it('responds with how many points the payer paid', async () => {
+//   await putTransaction1();
+//   const res = await patchPointsSpend2();
 
-  console.log('res', res.body);
+//   expect(Array.isArray(res.body)).toBe(true);
+//   expect(res.body.length).toBe(1);
+//   expect(res.body[0].payer).toBe("DANNON");
+//   expect(res.body[0].points).toBe(-300);
+//   expect(res.status).toBe(200);
+//   // expect(res.body.message).toBe("points have been spent");
+// })
+
+it('handles cases where there will be leftover points in the transaction', async () => {
+  await putTransaction2();
+  res = await patchPointsSpend1();
 
   expect(Array.isArray(res.body)).toBe(true);
   expect(res.body.length).toBe(1);
-  expect(res.body[0].payer).toBe("DANNON");
-  expect(res.body[0].points).toBe(-300);
+  expect(res.body[0].payer).toBe("MILLER COORS");
+  expect(res.body[0].points).toBe(-5000);
   expect(res.status).toBe(200);
-  // expect(res.body.message).toBe("points have been spent");
 })
-
-
-// it('responds with an array', async () => {
-//   //add dummy data to tables
-//   await putTransactions(transactions);
-//   // const transactionList = await Partner.findAll();//not needed
-
-//   const data = await patchPointsSpend1();
-
-//   expect(Array.isArray(data)).toBe(true);
-//   expect(data.length).toBe(3);
-// })
 
 // it('the response array contains objects with payers and points', async () => {
 //   await putTransactions(transactions);
 //   const data = await patchPointsSpend1();
+
+//   expect(Array.isArray(data)).toBe(true);
+//   expect(data.length).toBe(3);
 
 //   expect(data[0].payer).toBe("DANNON");
 //   expect(data[0].points).toBe(-100);
