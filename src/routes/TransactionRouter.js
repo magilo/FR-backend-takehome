@@ -19,7 +19,6 @@ router.put('/api/transactions/:payer', async (req, res, next) => {
 
     //create or update payer points
     const payer = await Partner.findOne({ where: { payer: req.params.payer } })
-    // console.log(payer);
     if (payer === null) {
       await Partner.create({
         payer: req.body.payer,
