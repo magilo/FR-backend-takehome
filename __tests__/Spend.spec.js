@@ -16,17 +16,22 @@ beforeEach(async () => {
 
 const pointsSpend = { "points": 5000 };
 
-const patchPointsSpend1 = (spent = pointsSpend) => {
+const patchSpend5000 = (spent = { "points": 5000 }) => {
   const agent = request(app).patch('/api/user/spend');
   return agent.send(spent)
 }
 
-const patchPointsSpend2 = (spent = { "points": 300 }) => {
+const patchSpend300 = (spent = { "points": 300 }) => {
   const agent = request(app).patch('/api/user/spend');
   return agent.send(spent);
 }
 
-const putTransaction1 = () => {
+const patchSpend0 = (spent = { "points": 0 }) => {
+  const agent = request(app).patch('/api/user/spend');
+  return agent.send(spent);
+}
+
+const putDannon300 = () => {
   return request(app)
     .put('/api/transactions/DANNON')
     .send({
@@ -34,7 +39,7 @@ const putTransaction1 = () => {
     })
 }
 
-const putTransaction2 = () => {
+const putMiller10000 = () => {
   return request(app)
     .put('/api/transactions/MILLER COORS')
     .send({
@@ -43,15 +48,31 @@ const putTransaction2 = () => {
 }
 
 
-it('returns success message if request is valid', async () => {
-  const response = await patchPointsSpend1();
-  expect(response.status).toBe(200);
-  expect(response.body.message).toBe("no points available");
+it('returns status and message if request is valid', async () => {
+  const res = await patchSpend5000();
+  expect(res.status).toBe(200);
+  expect(res.body.message).toBe("no points available");
+  expect(res.body.balance).toBe(0);
+})
+
+it('returns with message if user does not have enough points for the spend request', async () => {
+  await putDannon300();
+  const res = await patchSpend5000();
+
+  expect(res.body.message).toBe("not enough points");
+  expect(res.body.balance).toBe(300);
+})
+
+it('returns with balance if user has no points', async () => {
+  const res = await patchSpend0();
+
+  expect(res.body.message).toBe("no points available");
+  expect(res.body.balance).toBe(0);
 })
 
 // it('responds with how many points the payer paid', async () => {
-//   await putTransaction1();
-//   const res = await patchPointsSpend2();
+//   await putDannon300();
+//   const res = await patchSpend300();
 
 //   expect(Array.isArray(res.body)).toBe(true);
 //   expect(res.body.length).toBe(1);
@@ -62,8 +83,8 @@ it('returns success message if request is valid', async () => {
 // })
 
 it('handles cases where there will be leftover points in the transaction', async () => {
-  await putTransaction2();
-  res = await patchPointsSpend1();
+  await putMiller10000();
+  res = await patchSpend5000();
 
   expect(Array.isArray(res.body)).toBe(true);
   expect(res.body.length).toBe(1);
@@ -72,9 +93,9 @@ it('handles cases where there will be leftover points in the transaction', async
   expect(res.status).toBe(200);
 })
 
-// it('the response array contains objects with payers and points', async () => {
+// it('the res array contains objects with payers and points', async () => {
 //   await putTransactions(transactions);
-//   const data = await patchPointsSpend1();
+//   const data = await patchSpend5000();
 
 //   expect(Array.isArray(data)).toBe(true);
 //   expect(data.length).toBe(3);
