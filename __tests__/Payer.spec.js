@@ -90,3 +90,4 @@ it('saves the payer, points, timestamp to the transactions table', async () => {
   expect(savedTransaction.timestamp).toBe("2020-11-02T14:00:00Z");
   expect(savedTransaction.leftover).toBe(1000);
 })
+
