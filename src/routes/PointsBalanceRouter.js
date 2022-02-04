@@ -5,7 +5,9 @@ const { Partner, Transaction } = require('../models');
 
 router.get('/api/user/balance', async (req, res, next) => {
   try {
-    const pointsBalance = await Partner.findAll();
+    const pointsBalance = await Partner.findAll({
+      attributes: ['payer', 'points']
+    });
     console.log(pointsBalance)
     res.json(pointsBalance);
 
