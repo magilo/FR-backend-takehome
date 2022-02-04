@@ -25,6 +25,10 @@ const singleTransaction = (transaction) => {
   return agent.send(transaction);
 }
 
+const getTransactions = () => {
+  return request(app).get('/api/transactions');
+}
+
 
 describe('add transaction route', () => {
   it('creates new payer if payer does not exist in Partner table', async () => {
@@ -67,5 +71,30 @@ describe('add transaction route', () => {
   })
 
 });
+
+describe('get transactions', () => {
+  it('returns a list of rows from the transaction table', async () => {
+    await Promise.all([
+      singleTransaction(dannon1),
+      singleTransaction(dannon2),
+      singleTransaction(unilever)
+    ]);
+
+    const res = await getTransactions();
+
+    expect(res.status).toBe(200);
+    expect(res.body.length).toBe(3);
+  })
+
+  it('returns empty list if there are no transactions', async () => {
+    const res = await getTransactions();
+
+    expect(res.status).toBe(200);
+    expect(res.body.length).toBe(0);
+  })
+
+})
+
+
 
 

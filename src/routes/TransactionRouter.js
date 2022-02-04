@@ -1,50 +1,26 @@
 const express = require('express');
 const router = express.Router();
 
-const { Partner, Transaction } = require('../models');
-const sequelize = require('../database');
+const { addTransaction, getTransactions } = require('./TransactionService');
 
-
-/*** API routes for payer*/
 
 router.put('/api/transactions/:payer', async (req, res, next) => {
   try {
-    //add new row to transactions table
-    const transaction = await Transaction.create({
-      payer: req.body.payer,
-      points: req.body.points,
-      timestamp: req.body.timestamp,
-      leftover: req.body.points
-    })
-
-    //create or update payer points
-    const payer = await Partner.findOne({ where: { payer: req.params.payer } })
-    if (payer === null) {
-      await Partner.create({
-        payer: req.body.payer,
-        points: req.body.points,
-      })
-      const newPayer = await Partner.findOne({ where: { payer: req.params.payer } })
-      await transaction.setPartner(newPayer);
-      res.json({ message: "new payer added" })
-    } else {
-      payer.points += req.body.points;
-      await payer.save();
-      await transaction.setPartner(payer);
-      res.json({ message: "points updated" })
-    }
+    const transaction = await addTransaction(req.body, req.params.payer);
+    res.json(transaction);
 
   } catch (err) {
     next(err);
   }
 })
 
-// router.get('/api/', async (req, res, next) => {
-//   try {
-
-//   } catch (err) {
-//     next(err);
-//   }
-// })
+router.get('/api/transactions', async (req, res, next) => {
+  try {
+    const transactionList = await getTransactions();
+    res.json(transactionList);
+  } catch (err) {
+    next(err);
+  }
+})
 
 module.exports = router;

@@ -40,6 +40,11 @@ const getPointsBalance = () => {
   return agent.send()
 }
 
+const patchSpendPoints = (spent) => {
+  const agent = request(app).patch('/api/user/spend');
+  return agent.send(spent)
+};
+
 describe('get payer points balance', () => {
   it('returns a list of objects', async () => {
     await singleTransaction({ "payer": "DANNON", "points": 300, "timestamp": "2020-10-31T10:00:00Z" })
@@ -60,6 +65,18 @@ describe('get payer points balance', () => {
     expect(res.body[0]).toMatchObject({ "payer": "DANNON", "points": 1100 });
     expect(res.body[1]).toMatchObject({ "payer": "UNILEVER", "points": 200 });
     expect(res.body[2]).toMatchObject({ "payer": "MILLER COORS", "points": 10000 });
+  })
+
+  it('returns new balances if points were spent', async () => {
+    await putTransactions(transactions);
+    await patchSpendPoints({ "points": 5000 });
+    const res = await getPointsBalance();
+
+    expect(Array.isArray(res.body)).toBe(true);
+    expect(res.body.length).toBe(3);
+    expect(res.body[0]).toMatchObject({ "payer": "DANNON", "points": 1000 });
+    expect(res.body[1]).toMatchObject({ "payer": "UNILEVER", "points": 0 });
+    expect(res.body[2]).toMatchObject({ "payer": "MILLER COORS", "points": 5300 });
   })
 
   it('returns empty list if there are no payers', async () => {
