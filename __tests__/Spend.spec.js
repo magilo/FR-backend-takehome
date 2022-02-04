@@ -49,7 +49,6 @@ describe('spend points', () => {
   });
 
   it('returns with message and balance if user does not have enough points for the spend request', async () => {
-    // await putDannon300();
     await singleTransaction({ "payer": "DANNON", "points": 300, "timestamp": "2020-10-31T10:00:00Z" });
     const res = await patchSpendPoints({ "points": 5000 });
 
@@ -65,7 +64,6 @@ describe('spend points', () => {
   });
 
   it('responds with how many points the payer paid', async () => {
-    // await putDannon300();
     await singleTransaction({ "payer": "DANNON", "points": 300, "timestamp": "2020-10-31T10:00:00Z" });
     const res = await patchSpendPoints({ "points": 300 });
 
@@ -78,7 +76,6 @@ describe('spend points', () => {
   });
 
   it('handles cases where there will be leftover points in the transaction', async () => {
-    // await putMiller10000();
     await singleTransaction({ "payer": "MILLER COORS", "points": 10000, "timestamp": "2020-11-01T14:00:00Z" });
     const res = await patchSpendPoints({ "points": 5000 });
 
