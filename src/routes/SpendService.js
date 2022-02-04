@@ -2,6 +2,9 @@ const { Partner, Transaction } = require('../models');
 const sequelize = require('../database');
 const { Op } = require("sequelize");
 
+/** isValidUserBalance takes care of any cases where
+ * user has no points/transactions
+ * doesn't have enough points for the spend call */
 const isValidUserBalance = async (pointsToSpend) => {
   const userBalance = await Partner.sum('points');
   if (userBalance === null) {
@@ -22,7 +25,6 @@ const isValidUserBalance = async (pointsToSpend) => {
 /**spendPoints function updates leftover points in Transaction,
  * updates payer balance in Partner,
  * and returns a list of the payers from current spend call  */
-
 const spendPoints = async (pointsToSpend) => {
 
   /**grab transactions in timestamp order where there are leftover points**/
@@ -38,16 +40,16 @@ const spendPoints = async (pointsToSpend) => {
   const activePayers = {} //payers that paid out for this spend call
   let timestampIdx = 0; //index for orderByTimestamp
 
+  //first use up any leftover points in the currentTransaction
+  // then go through each transaction until pointsToSpend is paid out
   while (pointsToSpend > 0) {
     let currentTransaction = orderByTimestamp[timestampIdx];
     let currentPayer = currentTransaction.payer;
 
     const payerBalance = await Partner.findOne({ where: { payer: currentPayer } })
-    //initialize payer in activePayers
+
     if (!(currentPayer in activePayers)) activePayers[currentPayer] = 0;
 
-    //first use up any leftover points in the currentTransaction
-    // then go through each transaction until pointsToSpend is paid out
     if (currentTransaction.leftover >= pointsToSpend) {
       //cases where points to spend will go to 0
       //there may or may not be leftover points
