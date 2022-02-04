@@ -27,7 +27,14 @@ const addTransaction = async (body, payerName) => {
   }
 }
 
+const getTransactions = async () => {
+  return await Transaction.findAll({
+    attributes: ['payer', 'points', 'timestamp', 'leftover']
+  });
+}
+
 
 module.exports = {
-  addTransaction
+  addTransaction,
+  getTransactions
 };

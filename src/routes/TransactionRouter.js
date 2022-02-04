@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { addTransaction } = require('./TransactionService');
+const { addTransaction, getTransactions } = require('./TransactionService');
 
 
 router.put('/api/transactions/:payer', async (req, res, next) => {
@@ -14,12 +14,13 @@ router.put('/api/transactions/:payer', async (req, res, next) => {
   }
 })
 
-// router.get('/api/', async (req, res, next) => {
-//   try {
-
-//   } catch (err) {
-//     next(err);
-//   }
-// })
+router.get('/api/transactions', async (req, res, next) => {
+  try {
+    const transactionList = await getTransactions();
+    res.json(transactionList);
+  } catch (err) {
+    next(err);
+  }
+})
 
 module.exports = router;
