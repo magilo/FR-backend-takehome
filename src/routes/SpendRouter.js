@@ -8,8 +8,7 @@ router.patch('/api/user/spend', async (req, res, next) => {
     let pointsToSpend = req.body.points;
 
     /**handle cases where user has no points/transactions
-     * or doesn't have enough points for the spend call
-     */
+     * or doesn't have enough points for the spend call */
     const validUserBalance = await isValidUserBalance(pointsToSpend);
     if (validUserBalance !== true) {
       return res.json(validUserBalance);
