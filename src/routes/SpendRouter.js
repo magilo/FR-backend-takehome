@@ -3,6 +3,16 @@ const router = express.Router();
 const { spendPoints, isValidUserBalance } = require('./SpendService');
 
 
+
+/**
+ * @swagger
+ * /api/user/spend:
+ *   patch:
+ *     description: Returns the homepage
+ *     responses:
+ *       200:
+ *         description: hello world
+ */
 router.patch('/api/user/spend', async (req, res, next) => {
   try {
     let pointsToSpend = req.body.points;
