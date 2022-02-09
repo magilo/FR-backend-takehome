@@ -27,11 +27,36 @@ router.put('/api/transactions/:payer', async (req, res, next) => {
  * @swagger
  * /api/transactions:
  *   get:
- *     description: Returns the homepage
+ *     summary: Gets a list of transactions from database.
+ *     description: A row from the transactions table contains payerName, points, timestamp, and leftover points.
  *     responses:
  *       200:
- *         description: hello world
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   payer:
+ *                     type: string
+ *                     description: The payer name.
+ *                     example: DANNON
+ *                   points:
+ *                     type: integer
+ *                     example: 300
+ *                   timestamp:
+ *                     type: string
+ *                     format: date-time
+ *                     example: 2020-10-31T10:00:00Z
+ *                   leftover:
+ *                     type: integer
+ *                     example: 150
  */
+
+
+
 router.get('/api/transactions', async (req, res, next) => {
   try {
     const transactionList = await getTransactions();

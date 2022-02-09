@@ -15,7 +15,7 @@ const { Partner } = require('../models');
  *         description: hello world
  */
 
- router.get('/hello', (req, res) => {
+router.get('/hello', (req, res) => {
   res.send('Hello World (Version 2)!');
 });
 
@@ -23,10 +23,11 @@ const { Partner } = require('../models');
  * @swagger
  * /api/user/balance:
  *   get:
- *     description: Returns the homepage
+ *     summary: Gets a list of payers and their points balance.
+ *     description: A user's balance is made up of the points balance from the partners that they had a transaction with.
  *     responses:
  *       200:
- *         description: hello world
+ *         description: OK
  */
 
 
