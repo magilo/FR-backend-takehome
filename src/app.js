@@ -25,11 +25,18 @@ const options = {
       }
     ]
   },
-  apis: ['./app.js']
+  apis: [
+    './src/routes/PointsBalanceRouter.js',
+    './src/routes/SpendRouter.js',
+    './src/routes/TransactionRouter.js'
+  ]
 }
+
+// apis: [`${__dirname}/routes/index.js`]
 
 const swaggerSpec = swaggerJSDoc(options)
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 
 //send 404 for any remaining requests
 app.use((req, res, next) => {
