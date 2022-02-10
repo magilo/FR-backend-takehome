@@ -1,13 +1,52 @@
 components:
   schemas:
+    Transaction:
+      type: object
+      properties:
+        payer:
+          type: string
+          description: The payer's name.
+          example: DANNON
+        points:
+          type: integer
+          description: Points from the transaction.
+          example: 300
+        timestamp:
+          type: string
+          format: date-time
+          description: Time that the transaction was made.
+          example: 2020-10-31T10:00:00Z
+        leftover:
+          type: integer
+          description: Points that haven't been spent yet. 0 means all points from the transaction has been spent.
+          example: 300
+    Partner:
+      type: object
+      properties:
+        payer:
+          type: string
+          description: The payer's name.
+          example: UNILEVER
+        points:
+          type: integer
+          description: The payer's overall point balance.
+          example: 200
     User:
       type: object
       properties:
-        id:
-          type: integer
-          description: The user ID.
-          example: 0
         name:
           type: string
           description: The user's name.
-          example: Leanne Graham
+          example: Maggie
+        balance:
+          type: integer
+          description: The user's total balance.
+          example: 11300
+
+
+
+        # id:
+        #   type: integer
+        #   description: The user ID.
+        #   example: 0
+
