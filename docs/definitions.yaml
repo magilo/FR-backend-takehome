@@ -1,0 +1,86 @@
+components:
+  schemas:
+    Transaction:
+      type: object
+      properties:
+        payer:
+          type: string
+          description: The payer's name.
+          example: DANNON
+        points:
+          type: integer
+          description: Points from the transaction.
+          example: 300
+        timestamp:
+          type: string
+          format: date-time
+          description: Time that the transaction was made.
+          example: 2020-10-31T10:00:00Z
+        leftover:
+          type: integer
+          description: Points that haven't been spent yet. 0 means all points from the transaction has been spent.
+          example: 300
+    Partner:
+      type: object
+      properties:
+        payer:
+          type: string
+          description: The payer's name.
+          example: UNILEVER
+        points:
+          type: integer
+          description: The payer's overall point balance.
+          example: 200
+    User:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The user's name.
+          example: Maggie
+        balance:
+          type: integer
+          description: The user's total balance.
+          example: 11300
+  requestBodies:
+    Spend:
+      type: object
+      properties:
+          points:
+            type: integer
+            description: The amount of points to spend.
+            example: 5000
+  responses:
+    ArrayOfSpentPoints:
+      type: array
+      items:
+        type: object
+        properties:
+          payer:
+            type: string
+          points:
+            type: integer
+      example:
+        - payer: DANNON
+          points: -100
+        - payer: UNILEVER
+          points: -200
+        - payer: MILLER COORS
+          points: -4700
+    ArrayOfPointsBalance:
+      type: array
+      items:
+        type: object
+        properties:
+          payer:
+            type: string
+          points:
+            type: integer
+      example:
+        - payer: DANNON
+          points: 1000
+        - payer: UNILEVER
+          points: 0
+        - payer: MILLER COORS
+          points: 5300
+

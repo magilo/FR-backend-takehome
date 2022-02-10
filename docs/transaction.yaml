@@ -1,0 +1,74 @@
+paths:
+  /api/transactions/{payer}:
+    put:
+      tags:
+      - transaction
+      summary: Add a new transaction
+      description: When a new transaction is added to the Transaction table, the Partner table is also updated to reflect the new points balance or a new partner row is added if the partner does not exist yet.
+      parameters:
+      - name: payer
+        in: path
+        description: name of the payer for the transaction i.e. DANNON
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: body contains an object with the transaction data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Transaction'
+            examples:
+              DANNON+300:
+                value:
+                  payer: DANNON
+                  points: 300
+                  timestamp: 2020-10-31T10:00:00Z
+              DANNON-200:
+                value:
+                  payer: DANNON
+                  points: -200
+                  timestamp: 2020-10-31T15:00:00Z
+              DANNON+1000:
+                value:
+                  payer: DANNON
+                  points: 1000
+                  timestamp: 2020-11-02T14:00:00Z
+              UNILEVER+200:
+                value:
+                  payer: UNILEVER
+                  points: 200
+                  timestamp: 2020-10-31T11:00:00Z
+              MILLERCOORS+10000:
+                value:
+                  payer: MILLER COORS
+                  points: 10000
+                  timestamp: 2020-11-01T14:00:00Z
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+  /api/transactions:
+    get:
+      tags:
+      - transaction
+      summary: Get a list of all transactions made
+      description: A row from the transactions table contains payers name, points, timestamp, and leftover points.
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transaction'
+
+
+
+components:
+  $ref: ./definitions.yaml
+
