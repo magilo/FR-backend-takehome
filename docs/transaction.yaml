@@ -46,7 +46,7 @@ paths:
                   timestamp: 2020-11-01T14:00:00Z
       responses:
         200:
-          description: successful operation
+          description: OK
           content:
             application/json:
               schema:
