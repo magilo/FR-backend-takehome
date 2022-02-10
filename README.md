@@ -20,7 +20,6 @@ Backend API project
 - SQLite3 - v5.0.2
 - Sequelize - v6.15.0
 - Jest - v27.4.7
-- swagger-jsdoc - v6.0.0
 
 
 
@@ -37,11 +36,26 @@ List the ready features here:
 
 
 ## Setup
-What are the project requirements/dependencies? Where are they listed? A requirements.txt or a Pipfile.lock file perhaps? Where is it located?
+Setup for project on local environment:
+- git clone/fork project into desired directory?
+- install dependencies: npm install
+
+start local server: npm start
+  - nodemon will watch for any changes in the files
+
+run tests: npm test
+  - Jest will watch for any changes in the files
+
+Notes:
+- make sure your Node version is at least version 14
+- please note swagger-jsdoc is using v6.0.0 in this project. Later versions are not guaranteed to work.
+
+
+<!-- What are the project requirements/dependencies? Where are they listed? A requirements.txt or a Pipfile.lock file perhaps? Where is it located?
 
 Proceed to describe how to install / setup one's local environment / get started with the project.
 - tests are setup in watchmode
-- file updates are setup in watchmode through nodemon
+- file updates are setup in watchmode through nodemon -->
 
 
 ## Usage
@@ -51,8 +65,8 @@ Provide various use cases and code examples here.
 `write-your-code-here`
 
 
-## Project Status
-Project is: _in progress_ / _complete_ / _no longer being worked on_. If you are no longer working on it, provide reasons why.
+<!-- ## Project Status
+Project is: _in progress_ / _complete_ / _no longer being worked on_. If you are no longer working on it, provide reasons why. -->
 
 
 ## Room for Improvement
