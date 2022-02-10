@@ -44,7 +44,6 @@ components:
           example: 11300
 
 
-
         # id:
         #   type: integer
         #   description: The user ID.

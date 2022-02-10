@@ -37,6 +37,32 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Transaction'
+            examples:
+              DANNON+300:
+                value:
+                  payer: DANNON
+                  points: 300
+                  timestamp: 2020-10-31T10:00:00Z
+              DANNON-200:
+                value:
+                  payer: DANNON
+                  points: -200
+                  timestamp: 2020-10-31T15:00:00Z
+              DANNON+1000:
+                value:
+                  payer: DANNON
+                  points: 1000
+                  timestamp: 2020-11-02T14:00:00Z
+              UNILEVER+200:
+                value:
+                  payer: UNILEVER
+                  points: 200
+                  timestamp: 2020-10-31T11:00:00Z
+              MILLERCOORS+10000:
+                value:
+                  payer: MILLER COORS
+                  points: 10000
+                  timestamp: 2020-11-01T14:00:00Z
       responses:
         200:
           description: successful operation
