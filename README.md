@@ -1,9 +1,10 @@
 # MG Rewards
 Web service for adding and spending rewards points in user account.
 
-# Project Name
+<!-- # Project Name
 > Outline a brief description of your project.
-> Live demo [_here_](https://www.example.com). <!-- If you have the project hosted somewhere, include the link here. -->
+> Live demo [_here_](https://www.example.com).  -->
+<!-- If you have the project hosted somewhere, include the link here. -->
 
 ## About
 Backend API project
@@ -14,16 +15,13 @@ Backend API project
 <!-- You don't have to answer all the questions - just the ones relevant to your project. -->
 
 ## Technologies Used
-- Node.js
-- Express
-- SQLite
-- Jest
-- Supertest
-- any other ones
-- include versions
-- Tech 1 - version 1.0
-- Tech 2 - version 2.0
-- Tech 3 - version 3.0
+- Node.js - v14.17.0
+- Express - v4.17.2
+- SQLite3 - v5.0.2
+- Sequelize - v6.15.0
+- Jest - v27.4.7
+- swagger-jsdoc - v6.0.0
+
 
 
 ## Features
@@ -72,15 +70,16 @@ To do:
 
 ## Acknowledgements
 Tutorials used for this project:
-- [Node.js Express SQLite project setup?]()
-- [Test Driven Development for Node.js Express SQLite Jest Supertest]()
+- [Rest application with Node JS Express & Sequelize & SQLite](https://youtu.be/bWFuEVmRgdk)
+- [Test Driven Development - TDD with Node js Express](https://youtu.be/dTn_biKznU4)
 - [Document an Express API with Swagger UI and JSDoc](https://dev.to/kabartolo/how-to-document-an-express-api-with-swagger-ui-and-jsdoc-50do)
 - [Splitting your swagger spec into multiple files in a Node project](https://www.codementor.io/@peteradeoye/splitting-your-swagger-spec-into-multiple-files-in-a-node-project-nuprc0mej)
+- [How to write a good README for your GitHub project?](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project)
 
-Give credit here.
+<!-- Give credit here.
 - This project was inspired by...
 - This project was based on [this tutorial](https://www.example.com).
-- Many thanks to...
+- Many thanks to... -->
 
 
 <!-- ## Contact
