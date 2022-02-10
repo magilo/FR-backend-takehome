@@ -75,6 +75,8 @@ Tutorials used for this project:
 - [Node.js Express SQLite project setup?]()
 - [Test Driven Development for Node.js Express SQLite Jest Supertest]()
 - [Document an Express API with Swagger UI and JSDoc](https://dev.to/kabartolo/how-to-document-an-express-api-with-swagger-ui-and-jsdoc-50do)
+- [Splitting your swagger spec into multiple files in a Node project](https://www.codementor.io/@peteradeoye/splitting-your-swagger-spec-into-multiple-files-in-a-node-project-nuprc0mej)
+
 Give credit here.
 - This project was inspired by...
 - This project was based on [this tutorial](https://www.example.com).

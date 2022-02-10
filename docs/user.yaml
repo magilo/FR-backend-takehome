@@ -1,0 +1,13 @@
+paths:
+  /users:
+    post:
+      summary: Create a JSONPlaceholder user.
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: './definitions.yaml'

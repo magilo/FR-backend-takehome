@@ -28,7 +28,10 @@ const options = {
   apis: [
     './src/routes/PointsBalanceRouter.js',
     './src/routes/SpendRouter.js',
-    './src/routes/TransactionRouter.js'
+    './src/routes/TransactionRouter.js',
+    './docs/definitions.yaml',
+    './docs/user.yaml',
+    './docs/transaction.yaml'
   ]
 }
 
