@@ -1,13 +1,35 @@
 paths:
-  /users:
-    post:
-      summary: Create a JSONPlaceholder user.
+  /api/user/balance:
+    get:
+      tags:
+      - user
+      summary: Gets a list of payers and their points balance.
+      description: A user's balance is made up of the points balance from the partners that they had a transaction with.
       responses:
-        201:
-          description: Created
+        200:
+          description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: './definitions.yaml'
+                  $ref: '#/components/schemas/Partner'
+
+components:
+  $ref: ./definitions.yaml
+
+
+
+# paths:
+#   /users:
+#     post:
+#       summary: Create a JSONPlaceholder user.
+#       responses:
+#         201:
+#           description: Created
+#           content:
+#             application/json:
+#               schema:
+#                 type: array
+#                 items:
+#                   $ref: './definitions.yaml'
