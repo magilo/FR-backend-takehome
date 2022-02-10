@@ -42,6 +42,47 @@ components:
           type: integer
           description: The user's total balance.
           example: 11300
+  requestBodies:
+    Spend:
+      type: object
+      properties:
+          points:
+            type: integer
+            description: The amount of points to spend.
+            example: 5000
+  responses:
+    ArrayOfSpentPoints:
+      type: array
+      items:
+        type: object
+        properties:
+          payer:
+            type: string
+          points:
+            type: integer
+      example:
+        - payer: DANNON
+          points: -100
+        - payer: UNILEVER
+          points: -200
+        - payer: MILLER COORS
+          points: -4700
+    ArrayOfPointsBalance:
+      type: array
+      items:
+        type: object
+        properties:
+          payer:
+            type: string
+          points:
+            type: integer
+      example:
+        - payer: DANNON
+          points: 1000
+        - payer: UNILEVER
+          points: 0
+        - payer: MILLER COORS
+          points: 5300
 
 
         # id:

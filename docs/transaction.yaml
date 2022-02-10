@@ -24,6 +24,7 @@ paths:
       tags:
       - transaction
       summary: Add a new transaction
+      description: When a new transaction is added to the Transaction table, the Partner table is also updated to reflect the new points balance or a new partner row is added if the partner does not exist yet.
       parameters:
       - name: payer
         in: path
@@ -32,7 +33,7 @@ paths:
         schema:
           type: string
       requestBody:
-        description: adds new transaction to transaction table and updates payer table
+        description: body contains an object with the transaction data
         content:
           application/json:
             schema:
@@ -74,8 +75,8 @@ paths:
     get:
       tags:
       - transaction
-      summary: Gets a list of transactions from database.
-      description: A row from the transactions table contains payerName, points, timestamp, and leftover points.
+      summary: Get a list of all transactions made
+      description: A row from the transactions table contains payers name, points, timestamp, and leftover points.
       responses:
         200:
           description: OK

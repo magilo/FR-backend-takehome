@@ -3,7 +3,7 @@ paths:
     get:
       tags:
       - user
-      summary: Gets a list of payers and their points balance.
+      summary: Get a list of payers and their points balance
       description: A user's balance is made up of the points balance from the partners that they had a transaction with.
       responses:
         200:
@@ -11,9 +11,30 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Partner'
+                $ref: '#/components/responses/ArrayOfPointsBalance'
+  /api/user/spend:
+    patch:
+      tags:
+      - user
+      summary: Spends the amount of points specified in the request body
+      description: The amount of points is spent in the order of the oldest transaction until there are no more leftover points. If there are not enough points to use in the transaction, it will spend points from the next oldest transaction. Returns a response of how many points each payer paid for.
+      requestBody:
+        description: body contains an object with the transaction data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/requestBodies/Spend'
+            example:
+              points: 5000
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/ArrayOfSpentPoints'
+
+
 
 components:
   $ref: ./definitions.yaml
