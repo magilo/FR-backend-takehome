@@ -4,7 +4,8 @@ const options = {
     openapi: '3.0.0',
     info: {
       title: 'MG Rewards API project',
-      version: '1.0.0'
+      version: '1.0.0',
+      description: "Web service for adding and spending rewards points in user account."
     },
     servers: [
       {
