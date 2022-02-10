@@ -84,9 +84,3 @@ components:
         - payer: MILLER COORS
           points: 5300
 
-
-        # id:
-        #   type: integer
-        #   description: The user ID.
-        #   example: 0
-

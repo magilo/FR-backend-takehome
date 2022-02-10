@@ -24,8 +24,13 @@ paths:
           application/json:
             schema:
               $ref: '#/components/requestBodies/Spend'
-            example:
-              points: 5000
+            examples:
+              spend 5000:
+                value:
+                  points: 5000
+              spend 1500:
+                value:
+                  points: 1500
       responses:
         200:
           description: OK
@@ -38,19 +43,3 @@ paths:
 
 components:
   $ref: ./definitions.yaml
-
-
-
-# paths:
-#   /users:
-#     post:
-#       summary: Create a JSONPlaceholder user.
-#       responses:
-#         201:
-#           description: Created
-#           content:
-#             application/json:
-#               schema:
-#                 type: array
-#                 items:
-#                   $ref: './definitions.yaml'

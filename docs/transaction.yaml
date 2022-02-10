@@ -1,24 +1,4 @@
 paths:
-  /pet:
-    post:
-      tags:
-      - pet
-      summary: Add a new pet to the store
-      operationId: addPet
-      requestBody:
-        description: Pet object that needs to be added to the store
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Transaction'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/Transaction'
-        required: true
-      responses:
-        405:
-          description: Invalid input
-          content: {}
   /api/transactions/{payer}:
     put:
       tags:
