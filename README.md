@@ -7,27 +7,29 @@ Web service for adding and spending rewards points in user account.
 <!-- If you have the project hosted somewhere, include the link here. -->
 
 ## About
-Backend API project
+This project was created as an exercise to practice Test-Driven Development (TDD) and to review foundational concepts of a REST API. I took the opportunity to set this project up from scratch in order to learn more about the role of Express in backend development.
+<!-- Backend API project
 - Provide general information about your project here.
 - What problem does it (intend to) solve?
 - What is the purpose of your project?
-- Why did you undertake it?
+- Why did you undertake it? -->
 <!-- You don't have to answer all the questions - just the ones relevant to your project. -->
 
 ## Technologies Used
 - Node.js - v14.17.0
 - Express - v4.17.2
-- SQLite3 - v5.0.2
-- Sequelize - v6.15.0
+- [SQLite3 - v5.0.2](https://github.com/mapbox/node-sqlite3)
+- [Sequelize - v6.15.0](https://github.com/sequelize/sequelize)
 - Jest - v27.4.7
 
-
+Notes:
+<br>
+I picked SQLite as the database for this project because I found out about in-memory databases only recently and I wanted to try using one. SQLite is prototype friendly and easy to set up. However, SQLite doesn't seem to be deployment friendly.
 
 ## Features
-List the ready features here:
-- Awesome feature 1
-- Awesome feature 2
-- Awesome feature 3
+- Transactions can be added for points
+- Points can be spent
+- Get remaining points balance
 
 
 ## Project Preview
@@ -39,19 +41,33 @@ List the ready features here:
 
 
 ## Setup
-Setup for project on local environment:
-- git clone/fork project into desired directory?
-- install dependencies: npm install
+#### Setup for project on local environment:
+- You will need `node` and `npm` installed globally on your machine.
+- Git fork this repository into your desired directory.
 
-start local server: npm start
-  - nodemon will watch for any changes in the files
+#### Install dependencies:
+```sh
+npm install
+```
 
-run tests: npm test
-  - Jest will watch for any changes in the files
+#### Start local server:
+```sh
+npm start
+```
+- Open `http://localhost:3000/api-docs/#/` in your browser to access api docs.
+- Nodemon will watch for any changes in the files
 
-Notes:
-- make sure your Node version is at least version 14
-- please note swagger-jsdoc is using v6.0.0 in this project. Later versions are not guaranteed to work.
+
+#### Run tests:
+```sh
+npm test
+```
+- Jest will watch for any changes in the files
+
+
+#### Notes:
+- Make sure your Node version is at least version 14.
+- Please note swagger-jsdoc is using v6.0.0 in this project. Other versions are not guaranteed to work.
 
 
 <!-- What are the project requirements/dependencies? Where are they listed? A requirements.txt or a Pipfile.lock file perhaps? Where is it located?
@@ -61,11 +77,11 @@ Proceed to describe how to install / setup one's local environment / get started
 - file updates are setup in watchmode through nodemon -->
 
 
-## Usage
+<!-- ## Usage
 How does one go about using it?
 Provide various use cases and code examples here.
 
-`write-your-code-here`
+`write-your-code-here` -->
 
 
 <!-- ## Project Status
@@ -73,17 +89,17 @@ Project is: _in progress_ / _complete_ / _no longer being worked on_. If you are
 
 
 ## Room for Improvement
-Include areas you believe need improvement / could be improved. Also add TODOs for future development.
-
-Room for improvement:
+#### Room for improvement:
 - missing validation and error handling inside routes
 - could have better error handling endware for routes
 - more thorough tests that handle edge cases and invalid inputs
 - better interfacing between route and resources
-e.g rename /api/transactions/{payer} ---> /api/transactions/add
 
-To do:
+  e.g rename /api/transactions/{payer} ---> /api/transactions/add
+
+#### To do:
 - research best practices for REST Architecture
+- research some ways to deploy projects with SQLite
 
 
 ## Acknowledgements
