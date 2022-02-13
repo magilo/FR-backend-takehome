@@ -7,7 +7,7 @@ Web service for adding and spending rewards points in user account.
 <!-- If you have the project hosted somewhere, include the link here. -->
 
 ## About
-This project was created as an exercise to practice Test-Driven Development (TDD) and to review foundational concepts of a REST API. I took the opportunity to set this project up from scratch in order to learn more about the role of Express in backend development.
+This project was created as an exercise to practice Test-Driven Development (TDD) and to review foundational concepts of a REST API. I took the opportunity to set this project up from scratch in order to learn more about the role of Express in backend development. It was also the first time I assembled documentation using Swagger as I needed an interface to present my API.
 <!-- Backend API project
 - Provide general information about your project here.
 - What problem does it (intend to) solve?
@@ -43,7 +43,7 @@ I picked SQLite as the database for this project because I found out about in-me
 ## Setup
 #### Setup for project on local environment:
 - You will need `node` and `npm` installed globally on your machine.
-- Git fork this repository into your desired directory.
+- Git [fork](https://docs.github.com/en/get-started/quickstart/fork-a-repo) this repository into your desired directory.
 
 #### Install dependencies:
 ```sh
