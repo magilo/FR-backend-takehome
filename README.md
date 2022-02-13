@@ -32,6 +32,10 @@ List the ready features here:
 
 ## Screenshots
 ![Example screenshot](./img/screenshot.png)
+<a href="https://www.loom.com/share/debf58d88cdf4a9b9c69d4257d802b91">
+    <p>Swagger UI - 12 February 2022 - Watch Video</p>
+    <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/debf58d88cdf4a9b9c69d4257d802b91-with-play.gif">
+  </a>
 <!-- If you have screenshots you'd like to share, include them here. -->
 
 
