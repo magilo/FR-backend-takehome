@@ -30,13 +30,12 @@ List the ready features here:
 - Awesome feature 3
 
 
-## Screenshots
-![Example screenshot](./img/screenshot.png)
+## Project Preview
 <a href="https://www.loom.com/share/debf58d88cdf4a9b9c69d4257d802b91">
-    <p>Swagger UI - 12 February 2022 - Watch Video</p>
+    <p>MG Rewards API - Watch Video</p>
     <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/debf58d88cdf4a9b9c69d4257d802b91-with-play.gif">
   </a>
-<!-- If you have screenshots you'd like to share, include them here. -->
+
 
 
 ## Setup
@@ -77,13 +76,14 @@ Project is: _in progress_ / _complete_ / _no longer being worked on_. If you are
 Include areas you believe need improvement / could be improved. Also add TODOs for future development.
 
 Room for improvement:
-- Improvement to be done 1
-- Improvement to be done 2
+- missing validation and error handling inside routes
 - could have better error handling endware for routes
+- more thorough tests that handle edge cases and invalid inputs
+- better interfacing between route and resources
+e.g rename /api/transactions/{payer} ---> /api/transactions/add
 
 To do:
-- Feature to be added 1
-- Feature to be added 2
+- research best practices for REST Architecture
 
 
 ## Acknowledgements
