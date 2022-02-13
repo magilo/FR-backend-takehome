@@ -50,7 +50,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Transaction'
+                oneOf:
+                  - $ref: '#/components/responses/NewPayer/schema'
+                  - $ref: '#/components/responses/UpdatedPayer/schema'
+                example:
+                  message: new payer added
   /api/transactions:
     get:
       tags:

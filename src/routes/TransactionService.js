@@ -29,8 +29,9 @@ const addTransaction = async (body, payerName) => {
 
 const getTransactions = async () => {
   return await Transaction.findAll({
-    attributes: ['payer', 'points', 'timestamp', 'leftover']
+    attributes: ['id', 'payer', 'points', 'timestamp', 'leftover', 'partnerId']
   });
+  // return await Transaction.findAll();
 }
 
 
