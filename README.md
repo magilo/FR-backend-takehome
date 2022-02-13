@@ -43,7 +43,7 @@ I picked SQLite as the database for this project because I found out about in-me
 ## Setup
 #### Setup for project on local environment:
 - You will need `node` and `npm` installed globally on your machine.
-- Git fork this repository into your desired directory. [Quickstart Guide](https://docs.github.com/en/get-started/quickstart/fork-a-repo)
+- Git fork this repository into your desired directory. [[forking guide]](https://docs.github.com/en/get-started/quickstart/fork-a-repo)
 
 #### Install dependencies:
 ```sh
