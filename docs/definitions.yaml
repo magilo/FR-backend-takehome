@@ -3,6 +3,10 @@ components:
     Transaction:
       type: object
       properties:
+        id:
+          type: integer
+          description: Primary key of row.
+          example: 3
         payer:
           type: string
           description: The payer's name.
@@ -20,9 +24,17 @@ components:
           type: integer
           description: Points that haven't been spent yet. 0 means all points from the transaction has been spent.
           example: 300
+        partnerId:
+          type: integer
+          description: Foreign key of the partner payer to the transaction.
+          example: 1
     Partner:
       type: object
       properties:
+        id:
+          type: integer
+          description: Primary key of row.
+          example: 1
         payer:
           type: string
           description: The payer's name.
@@ -34,6 +46,10 @@ components:
     User:
       type: object
       properties:
+        id:
+          type: integer
+          description: Primary key of row.
+          example: 1
         name:
           type: string
           description: The user's name.
@@ -67,6 +83,7 @@ components:
           points: -200
         - payer: MILLER COORS
           points: -4700
+
     ArrayOfPointsBalance:
       type: array
       items:
@@ -77,10 +94,53 @@ components:
           points:
             type: integer
       example:
-        - payer: DANNON
+        - id: 1
+          payer: DANNON
           points: 1000
-        - payer: UNILEVER
+        - id: 2
+          payer: UNILEVER
           points: 0
-        - payer: MILLER COORS
+        - id: 3
+          payer: MILLER COORS
           points: 5300
+    NotEnoughPoints:
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+          balance:
+            type: integer
+        example:
+          message: not enough points
+          balance: 300
+    NoPoints:
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+          balance:
+            type: integer
+        example:
+          message: no points available
+          balance: 0
+
+    NewPayer:
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+        example: new payer added
+
+    UpdatedPayer:
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+        example: points updated
+
+
 

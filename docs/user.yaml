@@ -37,7 +37,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/responses/ArrayOfSpentPoints'
+                oneOf:
+                  - $ref: '#/components/responses/ArrayOfSpentPoints'
+                  - $ref: '#/components/responses/NotEnoughPoints/schema'
+                  - $ref: '#/components/responses/NoPoints/schema'
 
 
 
